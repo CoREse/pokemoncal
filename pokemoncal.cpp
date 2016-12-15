@@ -1,6 +1,6 @@
 /* File: pokemoncal.cpp
  * Author: CRE
- * Last Edited: Thu Dec 15 14:03:32 2016
+ * Last Edited: Thu Dec 15 14:09:00 2016
  */
 
 #include "crelib/crelib.h"
@@ -11,6 +11,8 @@ using namespace cre;
 using namespace std;
 
 double AttriEff[TYPE_NUMBER][TYPE_NUMBER];
+
+const char * TypeName[TYPE_NUMBER]={"Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fight", "Poison", "Land", "Fly", "Super", "Insect", "Stone", "Ghost", "Dragon", "Evil", "Steel", "Fairy"};
 
 double attack(uint A, uint B, uint C)//calculate attack effect of AB to C
 {
