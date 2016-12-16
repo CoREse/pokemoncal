@@ -1,11 +1,12 @@
 /* File: pokemoncal.cpp
  * Author: CRE
- * Last Edited: Thu Dec 15 15:40:12 2016
+ * Last Edited: Fri Dec 16 15:55:02 2016
  */
 
 #include "crelib/crelib.h"
 #include <algorithm>
 #include <stdio.h>
+#include <stdlib.h>
 #define TYPE_NUMBER 18
 using namespace cre;
 using namespace std;
@@ -50,13 +51,28 @@ void printAE()
 	}
 }
 
-int main (int argc, const char ** argv)
+void getAnD(uint A, uint B)
 {
-	if (argc!=2) return 1;
-	FILE * TheFile;
-	TheFile=fopen(argv[1], "r");
-	readAE(TheFile);
-	fclose(TheFile);
+	printf("%s+%s:\nTypes:", TypeName[A],TypeName[B]);
+	for (uint i=0;i<TYPE_NUMBER;++i)
+	{
+		printf("\t%s", TypeName[i]);
+	}
+	printf("\nAttack:");
+	for (uint i=0;i<TYPE_NUMBER;++i)
+	{
+		printf("\t%.1lf", attack(A,B,i));
+	}
+	printf("\nDefend:");
+	for (uint i=0;i<TYPE_NUMBER;++i)
+	{
+		printf("\t%.1lf", defend(A,B,i));
+	}
+}
+
+void getADChart()
+{
+	printf("Number of Effects(Good attack/Bad attack;Good defend/Bad defend) and AGA tables:");
 	uint GA=0, BA=0, GD=0, BD=0;
 	bool First=true;
 	for (uint i=0;i<TYPE_NUMBER;++i)
@@ -85,6 +101,20 @@ int main (int argc, const char ** argv)
 	for (uint k=0;k<TYPE_NUMBER;++k)
 	{
 		printf("\n%s: %u", TypeName[k], AGA[k]);
+	}
+}
+
+int main (int argc, const char ** argv)
+{
+	FILE * TheFile;
+	TheFile=fopen("AE.txt", "r");
+	if (TheFile==NULL) die("No AE.txt in the directory!");
+	readAE(TheFile);
+	fclose(TheFile);
+	if (argc==1) getADChart();
+	if (argc==3)
+	{
+		getAnD(atoi(argv[1]),atoi(argv[2]));
 	}
 	return 0;
 }
