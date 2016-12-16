@@ -4,6 +4,8 @@ CRELIB_OBJS=crelib/*
 
 all: pkc
 
+win: pkc.exe
+
 pkc: $(PKC_OBJS) $(CRELIB)
 	$(LINK.cpp) $^ -o $@
 
