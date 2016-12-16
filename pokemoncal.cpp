@@ -1,6 +1,6 @@
 /* File: pokemoncal.cpp
  * Author: CRE
- * Last Edited: Thu Dec 15 14:09:00 2016
+ * Last Edited: Thu Dec 15 15:40:12 2016
  */
 
 #include "crelib/crelib.h"
@@ -11,6 +11,8 @@ using namespace cre;
 using namespace std;
 
 double AttriEff[TYPE_NUMBER][TYPE_NUMBER];
+
+uint AGA[TYPE_NUMBER];
 
 const char * TypeName[TYPE_NUMBER]={"Normal", "Fire", "Water", "Grass", "Electric", "Ice", "Fight", "Poison", "Land", "Fly", "Super", "Insect", "Stone", "Ghost", "Dragon", "Evil", "Steel", "Fairy"};
 
@@ -71,13 +73,18 @@ int main (int argc, const char ** argv)
 				if (attack(i,j,k)>1.0) ++GA;
 				if (attack(i,j,k)<1.0) ++BA;
 				if (defend(i,j,k)<1.0-0.1) ++GD;
-				if (defend(i,j,k)>1.0+0.1) ++BD;
+				if (defend(i,j,k)>1.0+0.1) {++BD;++AGA[k];}
 			}
 			if (!First) printf("\t");
 			First=false;
 			printf("%u/%u;%u/%u", GA,BA,GD,BD);
 		}
 		printf("\n");
+	}
+	printf("AGA:");
+	for (uint k=0;k<TYPE_NUMBER;++k)
+	{
+		printf("\n%s: %u", TypeName[k], AGA[k]);
 	}
 	return 0;
 }
