@@ -1,6 +1,6 @@
 /* File: pokemoncal.cpp
  * Author: CRE
- * Last Edited: Fri Dec 16 16:31:32 2016
+ * Last Edited: Fri Dec 16 17:01:46 2016
  */
 
 #include "crelib/crelib.h"
@@ -123,6 +123,15 @@ void getADChart()
 	}
 }
 
+void help()
+{
+	fprintf(stderr, "pck to show tables\npkc a b to show attack and defend effects\npkc --help to show this help\na,b are numbers:");
+	for (uint i=0;i<TYPE_NUMBER;++i)
+	{
+		fprintf(stderr, "\n%u: %s", i, TypeName[i]);
+	}
+}
+
 int main (int argc, const char ** argv)
 {
 	/* read the AE data
@@ -133,9 +142,10 @@ int main (int argc, const char ** argv)
 	fclose(TheFile);
 	*/
 	if (argc==1) getADChart();
-	if (argc==3)
+	else if (argc==3)
 	{
 		getAnD(atoi(argv[1]),atoi(argv[2]));
 	}
+	else help();
 	return 0;
 }

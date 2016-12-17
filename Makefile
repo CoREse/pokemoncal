@@ -1,4 +1,5 @@
 PKC_OBJS=pokemoncal.o
+PKC_WOBJS=pokemoncal.wo crelib/crelib.wo
 CRELIB=crelib/libcre.a
 CRELIB_OBJS=crelib/*.o
 WCCPP=x86_64-w64-mingw32-g++
@@ -13,14 +14,11 @@ pkc: $(PKC_OBJS) $(CRELIB)
 $(CRELIB): $(CRELIB_OBJS)
 	cd crelib && make
 
-pkc.exe: pokemoncal.wo crelib/crelib.wo
+pkc.exe: $(PKC_WOBJS)
 	$(WCCPP) -o $@ $^
 
-pokemoncal.wo:pokemoncal.cpp
-	$(WCCPP) -o $@ -c $^
-
-crelib/crelib.wo:crelib/crelib.cpp
-	$(WCCPP) -o $@ -c $^
+%.wo:%.cpp
+	$(WCCPP) -o $@ -c $<
 
 clean:
-	rm *.o pkc *.wo pkc.exe
+	rm *.o pkc $(PKC_WOBJS) pkc.exe
